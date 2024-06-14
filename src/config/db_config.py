@@ -4,6 +4,11 @@ import json
 CONFIG_FILE = 'config/db_config.json'
 
 def save_db_config(db_type, host, port, user, password, database):
+    """
+    Saves a JSON database configuration file.
+
+    db_type must be mysql or postgresql
+    """
     config = {
         'db_type': db_type,
         'host': host,
@@ -20,3 +25,5 @@ def save_db_config(db_type, host, port, user, password, database):
 def load_db_config():
     with open(CONFIG_FILE, 'r') as file:
         return json.load(file)
+    
+    
