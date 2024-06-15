@@ -3,10 +3,10 @@
 Ferramenta simples de visualização de banco de dados em interface de linha de comando.
 
 **Recursos**:
-- [ ] Permitir a conexão a bancos de dados PostgreSQL e MySQL
-- [ ] Gravar dados de conexão
-- [ ] Mostrar graficamente (em árvore) as tabelas e views do banco de dados
-- [ ] Mostrar também os campos da tabela e seus tipos e tamanhos
+- [x] Permitir a conexão a bancos de dados PostgreSQL e MySQL
+- [x] Gravar dados de conexão
+- [x] Mostrar graficamente (em árvore) as tabelas e views do banco de dados
+- [x] Mostrar também os campos da tabela e seus tipos e tamanhos
 - [ ] Apontar as chaves primárias de cada tabela
 - [ ] Consultar os dados da tabela
 - [ ] Dados mostrados em estrutura de tabela
