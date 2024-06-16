@@ -130,6 +130,7 @@ ENV/
 env.bak/
 venv.bak/
 src/config/db_config.json
+data
 
 # Spyder project settings
 .spyderproject

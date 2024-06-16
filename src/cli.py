@@ -8,7 +8,7 @@ from config.db_config import save_db_config, load_db_config
 from connection import get_engine, test_connection
 from tree_view import get_db_tree
 from query_table import query_table
-from display_table import display_table, show_table_data
+from display_table import display_table, get_table_data
 from export_data import export_to_csv, export_to_json
 
 app = typer.Typer()
@@ -45,7 +45,7 @@ def query(query):
 def show_table(table, limit = 1000):
     config = load_db_config()
     engine = get_engine(config)
-    df = show_table_data(engine, table, limit)
+    df = get_table_data(engine, table, limit)
     display_table(df)
 
 @app.command()
@@ -61,6 +61,22 @@ def export_query(sql: str, file_type: str = "json"):
     elif file_type.lower() == 'json':
         export_to_json(df, file_path)
     print(f"[green]Data exported to {file_path}[/green]")
+
+@app.command()
+def export_table(table, limit = 1000, file_type = "json"):
+    os.makedirs('../data', exist_ok=True)
+    file_path = "../data/export"
+    
+    config = load_db_config()
+    engine = get_engine(config)
+    df = get_table_data(engine, table, limit)
+
+    if file_type.lower() == "csv":
+        export_to_csv(df, file_path)
+        print("[green] Data exported to ../data/export [/green]")
+    if file_type.lower() == "json":
+        export_to_json(df, file_path)
+        print("[green] Data exported to ../data/export [/green]")
 
 if __name__ == "__main__":
     app()
