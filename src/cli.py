@@ -6,7 +6,7 @@ from config.db_config import save_db_config, load_db_config
 from connection import get_engine, test_connection
 from tree_view import get_db_tree
 from query_table import query_table
-from display_table import display_table
+from display_table import display_table, show_table_data
 
 app = typer.Typer()
 
@@ -32,10 +32,10 @@ def show_tree():
     print(tree)
 
 @app.command()
-def query(table, limit = 1000):
+def query(query):
     config = load_db_config()
     engine = get_engine(config)
-    df = query_table(engine, table, limit)
+    df = query_table(engine, query)
     display_table(df)
 
 if __name__ == "__main__":

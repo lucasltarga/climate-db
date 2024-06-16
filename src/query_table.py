@@ -1,8 +1,9 @@
 from sqlalchemy import text
 import pandas as pd
 
-def query_table(engine, table, limit):
-    query = f"SELECT * FROM {table} LIMIT {limit}"
+def query_table(engine, query):
     with engine.connect() as connection:
         result = connection.execute(text(query))
-        return pd.DataFrame(result.fetchall(), columns=result.keys())
+        data = result.fetchall()
+        columns = result.keys()
+        return pd.DataFrame(data, columns=columns)
