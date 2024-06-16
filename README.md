@@ -17,12 +17,12 @@ Ferramenta simples de visualização de banco de dados em interface de linha de 
 - [x] Gravar dados de conexão
 - [x] Mostrar graficamente (em árvore) as tabelas e views do banco de dados
 - [x] Mostrar também os campos da tabela e seus tipos e tamanhos
-- [ ] Apontar as chaves primárias de cada tabela
+- [x] Apontar as chaves primárias de cada tabela
 - [x] Consultar os dados da tabela
 - [x] Dados mostrados em estrutura de tabela
 - [x] Mostrar todos os dados (limitado a 1000 registros - configurável)
 - [x] Permitir consultas gerais (digitando o SQL diretamente)
-- [ ] Exportação de dados das tabelas e das consultas em CSV ou JSON
+- [x] Exportação de dados das tabelas e das consultas em CSV ou JSON
 
 ## Instalação
 
@@ -56,25 +56,16 @@ Navegue até a pasta raiz do projeto e use o seguinte comando:
 **Para configurar o banco de dados:**
 
 ```
-python climate.py configure --db_type TIPO_BANCO --host HOST --port PORTA --user USUARIO --password SENHA --database BANCO_DE_DADOS
-```
-
-ou 
-
-```
 python climate.py configure TIPO_BANCO HOST PORTA USUARIO SENHA BANCO_DE_DADOS
 ```
 
 **Exemplos:**
+```
+python climate.py configure mysql localhost 3306 meu_usuario minhasenhaforte testeDB
+```
 
 ```
-python climate.py configure --db_type mysql --host localhost --port 3306 --user meu_usuario --password minhasenhaforte --database testeBD
-```
-
-ou
-
-```
-python climate.py configure postgresql 127.0.0.1 3306 meu_usuario minhasenhaforte testeDB
+python climate.py configure postgresql 127.0.0.1 3306 meu_usuario minhasenhaforte meu_banco
 ```
 
 *As configurações serão salvas localmente em climate-db/src/config/db_config.json.*
@@ -102,6 +93,38 @@ Exemplo:
 
     python climate.py configure mysql 127.0.0.1 3306 meu_usuario minhasenhaforte meu_banco
 
+#### **export-query**
+
+Salva o resultado de uma query em um arquivo JSON ou CSV em climate-db/data/export. 
+O formato padrão configurado é JSON.
+
+
+    python climate.py export-query "QUERY" --file-type=TIPO 
+
+Exemplos:
+
+    python climate.py export-query "select * from student"
+ou
+    
+    python climate.py export-query "select * from instructor" --file-type=csv
+
+#### **export-table**
+
+Exporta uma tabela para um arquivo JSON ou CSV em climate-db/data/export. 
+O formato padrão configurado é JSON.
+
+O limite de resultados padrão é 1000.
+
+
+    python climate.py export-table NOME_DA_TABELA --limit=LIMITE --file-type=TIPO 
+
+Exemplos:
+
+    python climate.py export-table student
+ou
+    
+    python climate.py export-table instructor --file-type=csv --limit=10
+
 #### **query**
 
 Permite a execução de queries no banco de dados.
@@ -113,6 +136,7 @@ Exemplo:
 #### **show-table**
 
 Mostra os dados na tabela determinada.
+
 O limite padrão de resultados é 1000, mas pode ser configurado utilizando a _flag_ --limit
 
 Exemplo:
