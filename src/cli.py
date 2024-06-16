@@ -38,5 +38,12 @@ def query(query):
     df = query_table(engine, query)
     display_table(df)
 
+@app.command()
+def show_table(table, limit = 1000):
+    config = load_db_config()
+    engine = get_engine(config)
+    df = show_table_data(engine, table, limit)
+    display_table(df)
+
 if __name__ == "__main__":
     app()
